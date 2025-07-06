@@ -1,4 +1,5 @@
-
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const images = [
   {
@@ -76,18 +77,23 @@ function createMarkUp(arr) {
 		<img 
 		  class="gallery-image" 
 		  src="${item.preview}" 
-		  alt="${item.description}" 
+		  alt="${item.description}"
+      width="360"
 		/>
 	</a>
 </li>
 
         `).join("");
 };
-
-gallery.insertAdjacentHTML("beforeend", createMarkUp(images));
-
+if (gallery) {
+  gallery.insertAdjacentHTML("beforeend", createMarkUp(images));
 
 const lightbox = new SimpleLightbox('.gallery a', {
+  captions: true,
+  captionSelector: 'img',
   captionsData: 'alt',
+  captionPosition: 'bottom',
   captionDelay: 250,
+  fadeSpeed: 100,
 });
+}
