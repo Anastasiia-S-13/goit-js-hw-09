@@ -8,7 +8,6 @@ const input = document.querySelector("input");
 const textArea = document.querySelector("textarea")
 
 if (form) {
-form.addEventListener("input", userInformation);
 
 function userInformation(event) {
     const form = event.currentTarget;
@@ -27,9 +26,11 @@ function userInformation(event) {
         
         form.elements.email.value = parsedInfo.email || "";
         form.elements.message.value = parsedInfo.message || "";
+
+        formData.email = parsedInfo.email;
+        formData.message = parsedInfo.message;
     };
 
-    form.addEventListener("submit", clickButton);
     function clickButton(event) {
         event.preventDefault();
         const email = event.currentTarget.elements.email.value.trim();
@@ -41,9 +42,13 @@ function userInformation(event) {
             console.log(formData);
             form.reset();
             localStorage.removeItem("feedback-form-state");
+            formData.email = "";
+            formData.message = "";
         }
-    }
 
+    }
+    form.addEventListener("input", userInformation);
+    form.addEventListener("submit", clickButton);
     input.addEventListener("focus", inputInFocus);
     input.addEventListener("blur", inputOutFocus);
 
